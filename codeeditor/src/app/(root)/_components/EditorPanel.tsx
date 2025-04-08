@@ -10,7 +10,6 @@ import { useClerk } from "@clerk/nextjs";
 import { EditorPanelSkeleton } from "./EditorPanelSkeleton";
 import useMounted from "@/hooks/useMounted";
 import ShareSnippetDialog from "./ShareSnippetDialog";
-import * as monaco from 'monaco-editor';
 
 function EditorPanel() {
   const clerk = useClerk();
@@ -147,4 +146,5 @@ function EditorPanel() {
     </div>
   );
 }
+
 export default EditorPanel;

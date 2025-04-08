@@ -19,9 +19,11 @@ function EditorPanel() {
   const mounted = useMounted();
 
   useEffect(() => {
-    const savedCode = localStorage.getItem(`editor-code-${language}`);
-    const newCode = savedCode || LANGUAGE_CONFIG[language].defaultCode;
-    if (editor) editor.setValue(newCode);
+    if (editor) {
+      const savedCode = localStorage.getItem(`editor-code-${language}`);
+      const newCode = savedCode || LANGUAGE_CONFIG[language].defaultCode;
+      editor.setValue(newCode); // Ensure editor is available before setting value
+    }
   }, [language, editor]);
 
   useEffect(() => {
@@ -95,16 +97,15 @@ function EditorPanel() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setIsShareDialogOpen(true)}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg overflow-hidden bg-gradient-to-r
-               from-blue-500 to-blue-600 opacity-90 hover:opacity-100 transition-opacity"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg overflow-hidden bg-gradient-to-r from-blue-500 to-blue-600 opacity-90 hover:opacity-100 transition-opacity"
             >
               <ShareIcon className="size-4 text-white" />
-              <span className="text-sm font-medium text-white ">Share</span>
+              <span className="text-sm font-medium text-white">Share</span>
             </motion.button>
           </div>
         </div>
 
-        {/* Editor  */}
+        {/* Editor */}
         <div className="relative group rounded-xl overflow-hidden ring-1 ring-white/[0.05]">
           {clerk.loaded && (
             <Editor

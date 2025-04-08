@@ -58,7 +58,7 @@ function EditorPanel() {
             </div>
             <div>
               <h2 className="text-sm font-medium text-white">Code Editor</h2>
-              <p className="text-xs text-gray-500">Write and execute your code</p>
+              <p className="text-xs text-gray-500">Write here</p>
             </div>
           </div>
           <div className="flex items-center gap-3">

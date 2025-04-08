@@ -10,6 +10,7 @@ import { useClerk } from "@clerk/nextjs";
 import { EditorPanelSkeleton } from "./EditorPanelSkeleton";
 import useMounted from "@/hooks/useMounted";
 import ShareSnippetDialog from "./ShareSnippetDialog";
+import * as monaco from 'monaco-editor';
 
 function EditorPanel() {
   const clerk = useClerk();
@@ -22,9 +23,9 @@ function EditorPanel() {
     if (editor) {
       const savedCode = localStorage.getItem(`editor-code-${language}`);
       const newCode = savedCode || LANGUAGE_CONFIG[language].defaultCode;
-      editor.setValue(newCode); // Ensure editor is available before setting value
+      editor.setValue(newCode); // Now Monaco editor methods should work
     }
-  }, [language, editor]);
+  }, [language, editor]); // Ensure the effect runs after editor is mounted
 
   useEffect(() => {
     const savedFontSize = localStorage.getItem("editor-font-size");

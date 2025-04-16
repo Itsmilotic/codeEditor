@@ -19,12 +19,10 @@ function EditorPanel() {
   const mounted = useMounted();
 
   useEffect(() => {
-    if (editor) {
-      const savedCode = localStorage.getItem(`editor-code-${language}`);
-      const newCode = savedCode || LANGUAGE_CONFIG[language].defaultCode;
-      editor.setValue(newCode); // Now Monaco editor methods should work
-    }
-  }, [language, editor]); // Ensure the effect runs after editor is mounted
+    const savedCode = localStorage.getItem(`editor-code-${language}`);
+    const newCode = savedCode || LANGUAGE_CONFIG[language].defaultCode;
+    if (editor) editor.setValue(newCode);
+  }, [language, editor]);
 
   useEffect(() => {
     const savedFontSize = localStorage.getItem("editor-font-size");
@@ -60,7 +58,7 @@ function EditorPanel() {
             </div>
             <div>
               <h2 className="text-sm font-medium text-white">Code Editor</h2>
-              <p className="text-xs text-gray-500">Write here</p>
+              <p className="text-xs text-gray-500">Write and execute your code</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -97,15 +95,16 @@ function EditorPanel() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setIsShareDialogOpen(true)}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg overflow-hidden bg-gradient-to-r from-blue-500 to-blue-600 opacity-90 hover:opacity-100 transition-opacity"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg overflow-hidden bg-gradient-to-r
+               from-blue-500 to-blue-600 opacity-90 hover:opacity-100 transition-opacity"
             >
               <ShareIcon className="size-4 text-white" />
-              <span className="text-sm font-medium text-white">Share</span>
+              <span className="text-sm font-medium text-white ">Share</span>
             </motion.button>
           </div>
         </div>
 
-        {/* Editor */}
+        {/* Editor  */}
         <div className="relative group rounded-xl overflow-hidden ring-1 ring-white/[0.05]">
           {clerk.loaded && (
             <Editor
@@ -114,7 +113,7 @@ function EditorPanel() {
               onChange={handleEditorChange}
               theme={theme}
               beforeMount={defineMonacoThemes}
-              onMount={(editor) => setEditor(editor)}
+              onMount={setEditor}
               options={{
                 minimap: { enabled: false },
                 fontSize,
@@ -146,5 +145,4 @@ function EditorPanel() {
     </div>
   );
 }
-
 export default EditorPanel;
